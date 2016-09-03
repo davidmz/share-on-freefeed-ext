@@ -72,7 +72,7 @@ function getImages() {
         return [`https://instagram.com${m[0]}/media/?size=l`];
     }
 
-    if (/\.youtube\.com$/.text(location.hostname) || location.hostname === 'youtu.be') {
+    if (/\.youtube\.com$/.test(location.hostname) || location.hostname === 'youtu.be') {
         return [];
     }
 
