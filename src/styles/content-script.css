@@ -1,0 +1,72 @@
+.share-on-freefeed-iframe {
+    position:      fixed;
+    top:           0;
+    right:         0;
+    width:         400px;
+    height:        0;
+    /* almost maximal z-index: http://stackoverflow.com/q/491052 */
+    z-index:       2147483641;
+    background:    #fff;
+    box-shadow:    0 0 20px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    border:        none;
+}
+
+.share-on-freefeed-iframe.left {
+    border-top-left-radius:    0;
+    border-bottom-left-radius: 0;
+}
+
+.share-on-freefeed-iframe.right {
+    border-top-right-radius:    0;
+    border-bottom-right-radius: 0;
+}
+
+.share-on-freefeed-iframe.top {
+    border-top-left-radius:  0;
+    border-top-right-radius: 0;
+}
+
+.share-on-freefeed-iframe.bottom {
+    border-bottom-left-radius:  0;
+    border-bottom-right-radius: 0;
+}
+
+.share-on-freefeed-image-frame {
+    /* almost maximal z-index: http://stackoverflow.com/q/491052 */
+    z-index:          2147483640;
+    position:         fixed;
+    top:              10px;
+    left:             10px;
+    border:           6px solid #069;
+    border-radius:    4px;
+    width:            100px;
+    height:           100px;
+    overflow:         hidden;
+    cursor:           pointer;
+    font:             300 13px/1.4 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    box-shadow:       0 0 10px rgba(0, 0, 0, 0.5);
+    display:          none;
+    background-size:  100%;
+    background-color: white;
+    box-sizing:       content-box;
+}
+
+.share-on-freefeed-image-frame::before {
+    content:       "Select image";
+    background:    rgba(0, 102, 153, 0.75);
+    color:         #fff;
+    padding:       0.25em;
+    text-align:    center;
+    text-overflow: ellipsis;
+    overflow:      hidden;
+    white-space:   nowrap;
+    position:      absolute;
+    bottom:        0;
+    left:          0;
+    right:         0;
+}
+
+.share-on-freefeed-with-iframe .share-on-freefeed-image-frame.-visible {
+    display: block;
+}

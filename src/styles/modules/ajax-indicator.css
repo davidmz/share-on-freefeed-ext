@@ -1,0 +1,55 @@
+.box {
+    display:  none;
+    position: absolute;
+    top:      0;
+    left:     0;
+    width:    100%;
+    height:   4px;
+    overflow: hidden;
+    z-index:  1;
+}
+
+.box.visible {
+    display: block;
+}
+
+.box.blocked {
+    display:    block;
+    height:     100%;
+    background: rgba(66, 132, 165, 0.66);
+}
+
+.indicator {
+    position: absolute;
+    top:      0;
+    left:     0;
+    width:    100%;
+    height:   4px;
+}
+
+.box.blocked .indicator {
+    top: 50%;
+}
+
+.animation {
+    position:                  absolute;
+    background-color:          #fc0;
+    top:                       0;
+    left:                      -50%;
+    height:                    100%;
+    width:                     60%;
+    animation-duration:        2s;
+    animation-name:            move;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes move {
+    from {
+        left: -60%;
+    }
+
+    to {
+        left: 100%;
+    }
+}

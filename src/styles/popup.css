@@ -1,0 +1,58 @@
+body {
+    margin:           0;
+    padding:          0;
+    background-color: #eee;
+    font:             300 15px/1.4 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.link {
+    color:           #000;
+    cursor:          pointer;
+    text-decoration: underline;
+}
+
+p {
+    margin: 0.5em 0;
+}
+
+.formErrorBlock {
+    background-color: #d44;
+    color:            #fff;
+    padding:          0.25em;
+    border-radius:    0.25em;
+}
+
+.formErrorBlock:empty {
+    display: none;
+}
+
+.button {
+    background-color: #eee;
+    padding:          0.25em 0.75em;
+    border:           1px solid #ccc;
+    border-radius:    0.25em;
+    cursor:           pointer;
+    white-space:      nowrap;
+    font:             300 15px/1.4 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.button.-small {
+    font-size: 13px;
+}
+
+.button.-default {
+    background-color: #069;
+    color:            #fff;
+    padding:          0.5em 1.25em;
+    border:           none;
+}
+
+.button.-default[disabled] {
+    background-color: #a4b6bf;
+    color:            #fff;
+    cursor:           default;
+}
+
+.ui-blocked {
+    filter: grayscale(100%);
+}

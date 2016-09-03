@@ -1,1 +1,1 @@
-share-on-freefeed-ext
+# 'Share on Freefeed' browser extension
