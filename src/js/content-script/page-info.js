@@ -62,8 +62,8 @@ function getSelectionText() {
 function getImages() {
     // Twitter status
     if (location.hostname === 'twitter.com' && /^\/[^\/]+\/status\/\d+/.test(location.pathname)) {
-        const images = document.querySelectorAll('.AdaptiveMedia img');
-        return [...images].map(img => img.src).filter(src => /^https?:\/\//.test(src));
+        const images = document.querySelectorAll('.permalink-tweet .AdaptiveMedia img');
+        return [...images].slice(0, 6).map(img => img.src).filter(src => /^https?:\/\//.test(src));
     }
 
     // Instagram photo
