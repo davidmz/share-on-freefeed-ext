@@ -1,15 +1,18 @@
 .share-on-freefeed-iframe {
-    position:      fixed;
+    position:      fixed !important;
     top:           0;
     right:         0;
     width:         400px;
     height:        0;
     /* almost maximal z-index: http://stackoverflow.com/q/491052 */
-    z-index:       2147483641;
-    background:    #fff;
-    box-shadow:    0 0 20px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.2);
-    border-radius: 6px;
-    border:        none;
+    z-index:       2147483641 !important;
+    background:    #fff !important;
+    box-shadow:    0 0 20px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.2) !important;
+    border-radius: 6px !important;
+    border:        none !important;
+    visibility:    visible !important;
+    display:       block !important;
+    opacity:       1 !important;
 }
 
 .share-on-freefeed-iframe.left {
