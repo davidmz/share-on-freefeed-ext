@@ -76,6 +76,11 @@ function getImages() {
         return [];
     }
 
+    if (location.hostname === '500px.com' && /^\/photo\/\d+/.test(location.pathname)) {
+        const image = document.querySelector('.main_container img.photo');
+        return image ? [image.src] : [];
+    }
+
     if (!locationChanged) {
         const meta = document.querySelector('meta[property="og:image"]') || document.querySelector('meta[name="twitter:image:src"]');
         if (meta) {
