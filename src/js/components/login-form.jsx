@@ -21,7 +21,7 @@ export default observer(['user'],
         @action setPostError = error => this.postError = error;
 
         @computed get canPost() {
-            return trim(this.userName) !== '' > 0 && trim(this.password) !== '';
+            return trim(this.userName) !== '' && trim(this.password) !== '';
         }
 
         submit = event => {
