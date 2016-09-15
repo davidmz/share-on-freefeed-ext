@@ -8,7 +8,7 @@
     z-index:       2147483641 !important;
     background:    #fff !important;
     box-shadow:    0 0 20px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.2) !important;
-    border-radius: 6px !important;
+    border-radius: 6px;
     border:        none !important;
     visibility:    visible !important;
     display:       block !important;
