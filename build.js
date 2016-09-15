@@ -95,7 +95,7 @@ webpack({
             })
         }),
     ],
-    // devtool: 'source-map',
+    devtool: 'source-map',
     postcss: [
         autoprefixer()
     ],

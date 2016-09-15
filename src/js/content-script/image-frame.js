@@ -2,6 +2,8 @@ export default class {
     imageSrc = null;
     rect = null;
     frame = null;
+    /** @type {Array.<HotZone>} */
+    hotZones = [];
     onClick = () => {};
 
     constructor() {
@@ -17,6 +19,9 @@ export default class {
             e.stopPropagation();
             this.onClick(this.imageSrc);
         });
+
+        this.initHotZones();
+        setInterval(() => this.initHotZones(), 500);
     }
 
     clear() {
@@ -30,12 +35,19 @@ export default class {
         if (src === null) {
             return;
         }
-        this.rect = e.target.getBoundingClientRect();
-        if (this.rect.width < 20 && this.rect.height < 20) {
-            this.clear();
+        const rect = e.target.getBoundingClientRect();
+        if (rect.width < 20 && rect.height < 20) {
             return;
         }
-        this.imageSrc = src;
+        this.show(new HotZone(src, rect));
+    }
+
+    /**
+     * @param {HotZone} hotZone
+     */
+    show(hotZone) {
+        this.imageSrc = hotZone.src;
+        this.rect = hotZone.rect;
         this.frame.style.left = (this.rect.left - 6) + 'px';
         this.frame.style.top = (this.rect.top - 6) + 'px';
         this.frame.style.width = this.rect.width + 'px';
@@ -46,18 +58,41 @@ export default class {
 
     docMouseMove(e) {
         if (!this.rect) {
+            const zone = this.hotZones.find(z => inRect(e, z.rect));
+            if (zone) {
+                this.show(zone);
+            }
             return;
         }
-
-        if (
-            e.clientX < this.rect.left - 1
-            || e.clientX > this.rect.right + 1
-            || e.clientY < this.rect.top - 1
-            || e.clientY > this.rect.bottom + 1
-        ) {
+        if (!inRect(e, this.rect)) {
             this.clear();
         }
     }
+
+    initHotZones() {
+        if (location.hostname === '500px.com') {
+            /** @type {HTMLImageElement} */
+            const mainImage = document.querySelector('.main_container img.photo');
+            if (mainImage) {
+                this.hotZones = [HotZone.fromImage(mainImage)];
+            } else {
+                this.hotZones = [];
+            }
+        }
+    }
+}
+
+
+/**
+ *
+ * @param {MouseEvent} e
+ * @param {ClientRect} rect
+ */
+function inRect(e, rect) {
+    return e.clientX >= rect.left - 1
+        && e.clientX <= rect.right + 1
+        && e.clientY >= rect.top - 1
+        && e.clientY <= rect.bottom + 1
 }
 
 function getImageSrc(el) {
@@ -100,5 +135,39 @@ function getImageSrc(el) {
         }
     }
 
+    if (location.hostname === '500px.com') {
+        if (el.nodeName === 'A' && el.classList.contains('photo_link')) {
+            return getImageSrc(el.querySelector(':scope > img'));
+        }
+        if (el.nodeName === 'DIV' && el.classList.contains('nsfw_placeholder_content')) {
+            return getImageSrc(el.previousElementSibling);
+        }
+    }
+
     return null;
+}
+
+class HotZone {
+    /** @type {string} */
+    src;
+    /** @type {ClientRect} */
+    rect;
+
+    /**
+     * @param {string} src
+     * @param {ClientRect} rect
+     */
+    constructor(src, rect) {
+        this.src = src;
+        this.rect = rect;
+    }
+
+    /**
+     *
+     * @param {HTMLImageElement} img
+     * @return {HotZone}
+     */
+    static fromImage(img) {
+        return new HotZone(img.currentSrc || img.src, img.getBoundingClientRect())
+    }
 }
