@@ -3,6 +3,7 @@ var path = require('path');
 var child_process = require('child_process');
 var webpack = require('webpack');
 var WebpackOnBuildPlugin = require('on-build-webpack');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 var FolderZip = require('folder-zip');
 var autoprefixer = require('autoprefixer');
 
@@ -10,40 +11,7 @@ var srcDir = path.join(__dirname, 'src');
 var buildDir = path.join(__dirname, 'build');
 var targetDir = path.join(buildDir, 'unpacked');
 
-// clean build dir
-fs.emptyDirSync(buildDir);
-// create target dir
-fs.ensureDirSync(targetDir);
-
-// Images
-fs.copySync(
-    path.join(srcDir, 'images'),
-    path.join(targetDir, 'images')
-);
-// Pages
-fs.copySync(
-    path.join(srcDir, 'pages'),
-    path.join(targetDir, 'pages')
-);
-
-var packageInfo = require(path.join(__dirname, 'package.json'));
-
-////////////////////////////////////////
-// MANIFEST ////////////////////////////
-////////////////////////////////////////
-
-var mData = fs.readJsonSync(path.join(srcDir, 'manifest.json'));
-mData.version = packageInfo.version;
-
-fs.writeJsonSync(
-    path.join(targetDir, 'manifest.json'),
-    mData
-);
-
-////////////////////////////////////////
-// BACKGROUND & CONTENT ////////////////
-////////////////////////////////////////
-webpack({
+module.exports = {
     entry: {
         'background': [path.join(srcDir, 'js', 'background.js')],
         'content-script': [path.join(srcDir, 'js', 'content-script', 'main.js')],
@@ -88,10 +56,23 @@ webpack({
                 'NODE_ENV': JSON.stringify('production')
             }
         }),
-        new WebpackOnBuildPlugin(function (stats) {
+        new CleanWebpackPlugin([buildDir], {verbose: false}),
+        new WebpackOnBuildPlugin(function () {
+            var pkgData = fs.readJsonSync(path.join(__dirname, 'package.json'));
+            var mData = fs.readJsonSync(path.join(srcDir, 'manifest.json'));
+            mData.version = pkgData.version;
+            fs.writeJsonSync(path.join(targetDir, 'manifest.json'), mData);
+
+            ['images', 'pages'].forEach(function (dir) {
+                fs.copySync(
+                    path.join(srcDir, dir),
+                    path.join(targetDir, dir)
+                );
+            });
+
             var zip = new FolderZip();
             zip.zipFolder(targetDir, {excludeParentFolder: true}, function () {
-                zip.writeToFile(path.join(buildDir, 'extension-v' + packageInfo.version + '.zip'))
+                zip.writeToFile(path.join(buildDir, pkgData.name + '-v' + pkgData.version + '.zip'))
             })
         }),
     ],
@@ -102,10 +83,4 @@ webpack({
     resolve: {
         extensions: ['', '.js', '.jsx']
     }
-}, function (err, stats) {
-    if (err !== null) console.log(err);
-    var jStats = stats.toJson();
-    if (jStats.errors.length > 0) jStats.errors.forEach(function (m) { console.log('ERR', m); });
-    if (jStats.warnings.length > 0) jStats.warnings.forEach(function (m) { console.log('WARN', m); });
-});
-
+};
