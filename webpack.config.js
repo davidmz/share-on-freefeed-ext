@@ -49,7 +49,7 @@ module.exports = {
                 screw_ie8: true
             },
             comments: false,
-            sourceMap: true
+            sourceMap: false
         }),
         new webpack.DefinePlugin({
             'process.env': {
@@ -76,11 +76,15 @@ module.exports = {
             })
         }),
     ],
-    devtool: 'source-map',
+    // devtool: 'source-map',
     postcss: [
         autoprefixer()
     ],
     resolve: {
-        extensions: ['', '.js', '.jsx']
+        extensions: ['', '.js', '.jsx'],
+        alias: {
+            'react': 'react-lite',
+            'react-dom': 'react-lite'
+        }
     }
 };

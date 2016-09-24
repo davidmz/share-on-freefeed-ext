@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {findDOMNode} from 'react-dom';
 
+import {observer} from 'mobx-react';
+import {observable, action} from 'mobx';
+
 import {DragSource, DropTarget} from 'react-dnd';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
@@ -50,16 +53,18 @@ function collect(connect, monitor) {
 
 @DropTarget(itemType, dndTarget, connect => ({connectDropTarget: connect.dropTarget()}))
 @DragSource(itemType, dndSource, collect)
+@observer
 class ImagePreview extends Component {
+    @observable sizesText = '';
+
+    @action setSizesText = text => this.sizesText = text;
+
     getInfo = image => {
-        if (!image) {
-            return;
+        if (image) {
+            imageLoaded(image).then(() => {
+                this.setSizesText(`${image.naturalWidth}\u00d7${image.naturalHeight}`);
+            });
         }
-        imageLoaded(image).then(() => {
-            const text = `${image.naturalWidth}\u00d7${image.naturalHeight}`;
-            this.refs.info.innerHTML = text;
-            this.refs.info.title = text;
-        });
     };
 
     render() {
@@ -69,7 +74,7 @@ class ImagePreview extends Component {
                 <div className={css.delBtn} onClick={remover(src)}>
                     <SVGIcon id="close"/>
                 </div>
-                <div ref="info" className={css.imgInfo}></div>
+                <div className={css.imgInfo}>{this.sizesText}</div>
                 {connectDragSource(connectDropTarget(<img src={src} ref={this.getInfo}/>))}
             </div>
         );
