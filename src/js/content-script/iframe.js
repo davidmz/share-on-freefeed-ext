@@ -2,6 +2,7 @@ import qs from 'qs';
 import iframeResizer from 'iframe-resizer/js/iframeResizer';
 import classNames from 'classnames';
 
+import trim from '../lib/trim';
 import viewSize from '../lib/view-size';
 import getPageInfo from './page-info';
 
@@ -11,23 +12,26 @@ export default class {
     iframe = null;
     dragStart;
 
-    toggle() {
+    toggle(images) {
         if (this.iframe) {
             this.hide();
         } else {
-            this.show();
+            this.show(images);
         }
     }
 
-    show() {
+    show(images) {
+        if (this.iframe) {
+            return;
+        }
         this.iframe = document.createElement('iframe');
         this.iframe.className = classNames(className, 'right', 'top');
         const pageInfo = getPageInfo();
         const q = {
-            title: pageInfo.title,
+            title: trim(pageInfo.title),
             url: window.location.href,
-            selection: pageInfo.selection,
-            images: pageInfo.images
+            selection: trim(pageInfo.selection),
+            images: images ? images : pageInfo.images
         };
         this.iframe.src = chrome.runtime.getURL('pages/popup.html') + '?' + qs.stringify(q);
         document.body.appendChild(this.iframe);

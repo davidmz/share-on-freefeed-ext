@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+import {findDOMNode} from 'react-dom';
 import {observer} from 'mobx-react';
 import {observable, action, computed} from 'mobx';
 import qs from 'qs';
 import xor from 'lodash.xor';
 import uniq from 'lodash.uniq';
+import Textarea from 'react-textarea-autosize';
 
 import trim from '../lib/trim';
 import * as api from '../lib/api';
@@ -111,9 +113,10 @@ export default observer(['user', 'ui'],
                         </p>
                         <p>
                             Message<br/>
-                            <textarea
+                            <Textarea
                                 value={this.postText}
                                 onChange={this.changePostText}
+                                minRows={4}
                                 className={css.textArea + ' ' + css['-main']}
                                 ref={focusIt}
                             />
@@ -122,9 +125,10 @@ export default observer(['user', 'ui'],
                         {this.commentOpened ?
                             <p>
                                 First comment (optional)<br />
-                                <textarea
+                                <Textarea
                                     value={this.commentText}
                                     onChange={this.changeCommentText}
+                                    minRows={3}
                                     className={css.textArea}
                                     ref={focusIt}
                                 />
@@ -172,6 +176,9 @@ function targetPreview(tgt) {
 
 function focusIt(input) {
     if (input) {
-        input.focus();
+        const el = (input instanceof Component) ? findDOMNode(input) : input;
+        el.focus();
+        el.setSelectionRange(0, 0);
+        el.scrollTop = 0;
     }
 }

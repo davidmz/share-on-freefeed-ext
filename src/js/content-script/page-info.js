@@ -11,6 +11,8 @@ let locationChanged = false;
     }, 200);
 }
 
+const isImagePage = (document.images.length == 1 && document.images[0].src == location.href);
+
 export default function () {
     return {
         title: getTitle(),
@@ -20,6 +22,10 @@ export default function () {
 }
 
 function getTitle() {
+    if (isImagePage) {
+        return '';
+    }
+
     // Instagram
     if (location.hostname === 'www.instagram.com') {
         return document.title;
@@ -60,6 +66,10 @@ function getSelectionText() {
 }
 
 function getImages() {
+    if (isImagePage) {
+        return [location.href];
+    }
+
     // Twitter status
     if (location.hostname === 'twitter.com' && /^\/[^\/]+\/status\/\d+/.test(location.pathname)) {
         const images = document.querySelectorAll('.permalink-tweet .AdaptiveMedia img');

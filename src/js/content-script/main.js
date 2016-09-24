@@ -8,5 +8,11 @@ const imageFrame = new ImageFrame();
 
 imageFrame.onClick = src => popup.sendMessage(['addImage', src]);
 
-chrome.runtime.onMessage.addListener(() => popup.toggle());
+chrome.runtime.onMessage.addListener(({action, data}) => {
+    if (action === 'TOGGLE') {
+        popup.toggle();
+    } else if (action === 'OPEN') {
+        popup.show(data.images);
+    }
+});
 
