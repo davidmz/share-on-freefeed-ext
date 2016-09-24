@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
-import {observable, action, computed, toJS} from 'mobx';
+import {observable, action, computed} from 'mobx';
 import qs from 'qs';
 import xor from 'lodash.xor';
 import uniq from 'lodash.uniq';
@@ -64,11 +64,18 @@ export default observer(['user', 'ui'],
             ui.selectFeed(user.userName);
 
             if (location.search.charAt(0) === '?') {
-                const {title, url, comment, images} = qs.parse(location.search.substr(1));
-                this.postText = `${title || ''} \u2014 ${url}`;
-                this.commentText = trim(comment || '');
-                this.commentOpened = (this.commentText !== '');
+                const {title, url, selection, images} = qs.parse(location.search.substr(1));
                 (images || []).forEach(src => ui.addImage(src));
+
+                let text = url;
+                if (title) {
+                    text = `${title} \u2014 ${text}`;
+                }
+                if (selection) {
+                    const quote = /[\u0400-\u04ff]/.test(selection) ? `\u00AB${selection}\u00BB` : `\u201C${selection}\u201D`;
+                    text = `${quote}\n\n${text}`;
+                }
+                this.postText = text;
             }
         }
 

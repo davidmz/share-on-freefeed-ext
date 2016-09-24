@@ -26,7 +26,7 @@ export default class {
         const q = {
             title: pageInfo.title,
             url: window.location.href,
-            comment: pageInfo.selection,
+            selection: pageInfo.selection,
             images: pageInfo.images
         };
         this.iframe.src = chrome.runtime.getURL('pages/popup.html') + '?' + qs.stringify(q);
