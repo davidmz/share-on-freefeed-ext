@@ -18,7 +18,7 @@
             "19": "images/icon19.png",
             "38": "images/icon38.png"
         },
-        "default_title": "Share on Freefeed"
+        "default_title": "Share on Freefeed (Alt+Shift+F)"
     },
     "background": {
         "scripts": [
@@ -43,5 +43,12 @@
     "options_ui": {
         "page": "pages/options.html",
         "chrome_style": true
+    },
+    "commands": {
+        "_execute_browser_action": {
+            "suggested_key": {
+                "default": "Alt+Shift+F"
+            }
+        }
     }
 }
