@@ -19,4 +19,7 @@ window.iFrameResizer = {
     }
 };
 
-render(<Root />, document.getElementById('root'));
+chrome.storage.sync.get(null, settings => {
+    ui.setSettings(settings);
+    render(<Root />, document.getElementById('root'));
+});

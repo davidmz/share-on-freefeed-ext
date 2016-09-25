@@ -10,7 +10,8 @@
     },
     "permissions": [
         "tabs",
-        "contextMenus"
+        "contextMenus",
+        "storage"
     ],
     "browser_action": {
         "default_icon": {
@@ -38,5 +39,9 @@
     ],
     "web_accessible_resources": [
         "pages/*"
-    ]
+    ],
+    "options_ui": {
+        "page": "pages/options.html",
+        "chrome_style": true
+    }
 }

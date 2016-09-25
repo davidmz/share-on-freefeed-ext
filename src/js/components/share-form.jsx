@@ -69,15 +69,20 @@ export default observer(['user', 'ui'],
                 const {title, url, selection, images} = qs.parse(location.search.substr(1));
                 (images || []).forEach(src => ui.addImage(src));
 
-                let text = url;
+                let postText = url;
                 if (title) {
-                    text = `${title} \u2014 ${text}`;
+                    postText = `${title} \u2014 ${postText}`;
                 }
                 if (selection) {
-                    const quote = /[\u0400-\u04ff]/.test(selection) ? `\u00AB${selection}\u00BB` : `\u201C${selection}\u201D`;
-                    text = `${quote}\n\n${text}`;
+                    if (ui.settings.selectionPlacement === 'post') {
+                        const quote = /[\u0400-\u04ff]/.test(selection) ? `\u00AB${selection}\u00BB` : `\u201C${selection}\u201D`;
+                        postText = `${quote}\n\n${postText}`;
+                    } else {
+                        this.commentText = selection;
+                        this.commentOpened = true;
+                    }
                 }
-                this.postText = text;
+                this.postText = postText;
             }
         }
 

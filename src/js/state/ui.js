@@ -9,12 +9,15 @@ class UIStatus {
     @observable selectedFeeds = [];
     @observable images = [];
     @observable postAddress = null;
+    @observable settings = {};
 
     @action setLoading(st) { this.isLoading = st; }
 
     @action setBlocking(b = true) { this.isBlocking = b; }
 
     @action setPostAddress(addr) { this.postAddress = addr; }
+
+    @action setSettings(s) { this.settings = s; }
 
     @action addImage(img) {
         if (this.images.indexOf(img) === -1) {

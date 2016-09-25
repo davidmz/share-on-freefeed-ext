@@ -56,3 +56,24 @@ p {
 .ui-blocked {
     filter: grayscale(100%);
 }
+
+.settings {
+    position:      absolute;
+    right:         4px;
+    bottom:        8px;
+    color:         #bbb;
+    cursor:        pointer;
+    border-radius: 50%;
+    padding:       3px;
+}
+
+.settings:hover {
+    color:            #000000;
+    background-color: #ffffff;
+}
+
+.settings svg {
+    width:  20px;
+    height: 20px;
+    float:  left;
+}

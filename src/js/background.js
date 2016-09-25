@@ -10,3 +10,9 @@ chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({id: "selection", title: "Share \"%s\" on Freefeed", contexts: ["selection"]});
     chrome.contextMenus.create({id: "image", title: "Share image on Freefeed", contexts: ["image"]});
 });
+
+chrome.runtime.onMessage.addListener(({action, data}, sender, response) => {
+    if (action === 'openSettings') {
+        chrome.runtime.openOptionsPage();
+    }
+});
