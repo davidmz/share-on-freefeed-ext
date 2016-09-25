@@ -8,7 +8,7 @@ import {DragSource, DropTarget} from 'react-dnd';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import imageLoaded from '../lib/image-loaded';
+import {imageMetadataLoaded} from '../lib/image-loaded';
 import ui from '../state/ui';
 
 import SVGIcon from './svg-icon';
@@ -55,14 +55,24 @@ function collect(connect, monitor) {
 @DragSource(itemType, dndSource, collect)
 @observer
 class ImagePreview extends Component {
-    @observable sizesText = '';
 
+    @observable sizesText = '';
     @action setSizesText = text => this.sizesText = text;
 
-    getInfo = image => {
-        if (image) {
-            imageLoaded(image).then(() => {
-                this.setSizesText(`${image.naturalWidth}\u00d7${image.naturalHeight}`);
+    setDims = src => div => {
+        if (div) {
+            const img = new Image();
+            img.src = src;
+            imageMetadataLoaded(img).then(({width, height}) => {
+                this.setSizesText(`${width}\u00d7${height}`);
+                let pH = 80;
+                let pW = width * pH / height;
+                if (pW > 120) {
+                    pW = 120;
+                    pH = height * pW / width;
+                }
+                div.style.width = pW + 'px';
+                div.style.height = pH + 'px';
             });
         }
     };
@@ -74,8 +84,10 @@ class ImagePreview extends Component {
                 <div className={css.delBtn} onClick={remover(src)}>
                     <SVGIcon id="close"/>
                 </div>
-                <div className={css.imgInfo}>{this.sizesText}</div>
-                {connectDragSource(connectDropTarget(<img src={src} ref={this.getInfo}/>))}
+                <a target="_blank" href={src} title="Open image in new tab" className={css.imgInfo}>{this.sizesText}</a>
+                {connectDragSource(connectDropTarget(<div className={css.imgPlace}
+                                                          style={{backgroundImage: `url(${src})`}}
+                                                          ref={this.setDims(src)}/>))}
             </div>
         );
     }

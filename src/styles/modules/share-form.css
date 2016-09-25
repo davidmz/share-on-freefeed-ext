@@ -48,6 +48,15 @@
     border:     1px solid #999;
 }
 
+.imgPlace {
+    width:            80px;
+    height:           80px;
+    float:            left;
+    background-color: #999999;
+    border:           1px solid #999;
+    background-size:  100% 100%;
+}
+
 .delBtn {
     cursor:        pointer;
     position:      absolute;
@@ -82,6 +91,12 @@
     border-bottom:    1px solid #999;
     border-left:      1px solid #999;
     box-sizing:       border-box;
+    text-decoration:  none;
+}
+
+.imgInfo:hover {
+    background-color: white;
+    text-decoration:  underline;
 }
 
 .imgInfo:empty {
