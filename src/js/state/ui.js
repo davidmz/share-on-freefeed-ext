@@ -3,6 +3,13 @@ import {
     action
 } from 'mobx';
 
+const aEl = document ? document.createElement('A') : {href: ''};
+
+function sanitizeURL(url) {
+    aEl.href = url;
+    return aEl.href;
+}
+
 class UIStatus {
     @observable isLoading = false;
     @observable isBlocking = false;
@@ -20,6 +27,7 @@ class UIStatus {
     @action setSettings(s) { this.settings = s; }
 
     @action addImage(img) {
+        img = sanitizeURL(img);
         if (this.images.indexOf(img) === -1) {
             this.images.push(img);
         }
