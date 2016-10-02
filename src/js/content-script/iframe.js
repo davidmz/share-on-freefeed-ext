@@ -12,7 +12,7 @@ export default class {
     iframe = null;
     dragStart;
 
-    toggle(images) {
+    toggle(images = null) {
         if (this.iframe) {
             this.hide();
         } else {
@@ -20,7 +20,7 @@ export default class {
         }
     }
 
-    show(images) {
+    show(images = null) {
         if (this.iframe) {
             return;
         }

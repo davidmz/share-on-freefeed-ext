@@ -1,7 +1,13 @@
-import '../../styles/content-script.css';
-
 import Popup from './iframe';
 import ImageFrame from './image-frame';
+
+{
+    // подключение CSS с учётом возможного отсутствия HEAD у документа (например, в PDF-вьювере)
+    if (!document.head && document.getElementsByTagName("head").length === 0) {
+        document.documentElement.insertBefore(document.createElement('head'), document.documentElement.firstChild);
+    }
+    require('../../styles/content-script.css');
+}
 
 const popup = new Popup();
 const imageFrame = new ImageFrame();
