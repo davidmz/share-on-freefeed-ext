@@ -79,6 +79,10 @@ export default class {
                 this.hotZones = [];
             }
         }
+
+        if (location.hostname === 'petapixel.com') {
+            this.hotZones = [...document.querySelectorAll('.image-wrap > img')].map(img => HotZone.fromImage(img));
+        }
     }
 }
 
