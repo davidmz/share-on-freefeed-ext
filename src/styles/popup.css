@@ -33,7 +33,7 @@ p {
     border-radius:    0.25em;
     cursor:           pointer;
     white-space:      nowrap;
-    font:             300 15px/1.4 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font:             400 15px/1.4 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .button.-small {
