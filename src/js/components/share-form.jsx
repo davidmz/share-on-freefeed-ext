@@ -27,7 +27,16 @@ export default observer(['user', 'ui'],
         @action changePostText = event => this.postText = event.target.value;
         @action changeCommentText = event => this.commentText = event.target.value;
         @action setPostError = error => this.postError = error;
-        @action openComment = event => this.commentOpened = true;
+        @action openComment = () => {
+            this.commentOpened = true;
+            setTimeout(() => focusOn(this.commentInput), 0);
+        };
+
+        bodyInput = null;
+        commentInput = null;
+
+        setBodyInput = el => this.bodyInput = el;
+        setCommentInput = el => this.commentInput = el;
 
         delImage = src => event => this.props.ui.delImage(src);
 
@@ -58,6 +67,10 @@ export default observer(['user', 'ui'],
 
         @computed get canPost() {
             return this.selectedTargets.length > 0 && trim(this.postText) !== '';
+        }
+
+        componentDidMount() {
+            focusOn(this.bodyInput);
         }
 
         constructor(props) {
@@ -123,7 +136,7 @@ export default observer(['user', 'ui'],
                                 onChange={this.changePostText}
                                 minRows={4}
                                 className={css.textArea + ' ' + css['-main']}
-                                ref={focusIt}
+                                ref={this.setBodyInput}
                             />
                         </p>
                         <ImageList srcList={this.props.ui.images.slice()} remover={this.delImage}/>
@@ -135,7 +148,7 @@ export default observer(['user', 'ui'],
                                     onChange={this.changeCommentText}
                                     minRows={3}
                                     className={css.textArea}
-                                    ref={focusIt}
+                                    ref={this.setCommentInput}
                                 />
                             </p>
                             :
@@ -179,7 +192,7 @@ function targetPreview(tgt) {
         </span>;
 }
 
-function focusIt(input) {
+function focusOn(input) {
     if (input) {
         const el = (input instanceof Component) ? findDOMNode(input) : input;
         el.focus();
