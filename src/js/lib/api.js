@@ -15,7 +15,7 @@ export function startSession(userName, password) {
 }
 
 export function whoami() {
-    return apiCall('/v1/users/whoami');
+    return apiCall('/v2/users/whoami');
 }
 
 export function createPost(body, feeds) {
