@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {findDOMNode} from 'react-dom';
-import {observer} from 'mobx-react';
+import {inject, observer} from 'mobx-react';
 import {observable, action, computed} from 'mobx';
 import qs from 'qs';
 import xor from 'lodash.xor';
@@ -16,7 +16,7 @@ import ImageList from './image-list';
 
 import css from '../../styles/modules/share-form.css';
 
-export default observer(['user', 'ui'],
+export default inject('user', 'ui')(observer(
     class extends Component {
         @observable postText = '';
         @observable commentText = '';
@@ -172,7 +172,7 @@ export default observer(['user', 'ui'],
         }
 
     }
-);
+));
 
 
 function preSep(i, cnt) {

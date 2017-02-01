@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {observer} from 'mobx-react';
+import {inject, observer} from 'mobx-react';
 import {observable, action, autorun} from 'mobx';
 
 import css from '../../styles/modules/view-post.css';
@@ -15,7 +15,7 @@ const frontends = {
 
 const lsFrontendKey = 'frontend';
 
-export default observer(['ui'],
+export default inject('ui')(observer(
     class extends Component {
         @observable frontend = 'freefeed.net';
 
@@ -66,4 +66,4 @@ export default observer(['ui'],
             );
         }
     }
-);
+));

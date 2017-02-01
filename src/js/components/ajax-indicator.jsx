@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {observer} from 'mobx-react';
+import {inject, observer} from 'mobx-react';
 import classNames from 'classnames';
 
 import css from '../../styles/modules/ajax-indicator.css';
 
-export default observer(['ui'],
+export default inject('ui')(observer(
     ({ui: {isLoading, isBlocking}}) => {
         const className = classNames({
             [css.box]: true,
@@ -19,4 +19,4 @@ export default observer(['ui'],
             </div>
         );
     }
-);
+));

@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {observer} from 'mobx-react';
+import {inject, observer} from 'mobx-react';
 
 import {closePopup} from './cancel-link';
 import SVGIcon from './svg-icon';
 import css from '../../styles/modules/user-bar.css';
 
-export default observer(['user'],
+export default inject('user')(observer(
     class extends Component {
         isDragged = false;
 
@@ -60,4 +60,4 @@ export default observer(['user'],
             );
         }
     }
-);
+));

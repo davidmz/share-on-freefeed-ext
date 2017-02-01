@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {observer} from 'mobx-react';
+import {inject, observer} from 'mobx-react';
 import {observable, action, computed} from 'mobx';
 
 import trim from '../lib/trim';
@@ -8,7 +8,7 @@ import CancelLink from './cancel-link';
 
 import css from '../../styles/modules/login-form.css';
 
-export default observer(['user'],
+export default inject('user')(observer(
     class extends Component {
         @observable userName = '';
         @observable password = '';
@@ -61,4 +61,4 @@ export default observer(['user'],
             );
         }
     }
-);
+));

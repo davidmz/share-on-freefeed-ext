@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {observer} from 'mobx-react';
+import {inject, observer} from 'mobx-react';
 
 import AJAXIndicator from './ajax-indicator';
 import LoginForm from './login-form';
@@ -7,7 +7,8 @@ import ShareForm from './share-form';
 import ViewPost from './view-post';
 import SVGIcon from './svg-icon';
 
-@observer(['user', 'ui'])
+@inject('user', 'ui')
+@observer
 export default class extends Component {
     settingsClicked = () => {
         chrome.runtime.sendMessage({action: 'openSettings', data: null});
