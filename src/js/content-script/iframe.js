@@ -3,7 +3,6 @@ import iframeResizer from 'iframe-resizer/js/iframeResizer';
 import classNames from 'classnames';
 
 import trim from '../lib/trim';
-import viewSize from '../lib/view-size';
 import getPageInfo from './page-info';
 
 const className = 'share-on-freefeed-iframe';
@@ -64,14 +63,14 @@ export default class {
             let y = this.dragStart.y + data.y;
 
             const r = this.iframe.getBoundingClientRect();
-            const vs = viewSize();
+            const docEl = document.documentElement;
             const snapSize = 10;
 
             const snap = {
                 left: x < snapSize,
                 top: y < snapSize,
-                right: x > vs.width - r.width - snapSize,
-                bottom: y > vs.height - r.height - snapSize
+                right: x > docEl.clientWidth - r.width - snapSize,
+                bottom: y > docEl.clientHeight - r.height - snapSize
             };
 
             this.iframe.style.left = snap.left ? '0' : (snap.right ? 'auto' : x + 'px');
