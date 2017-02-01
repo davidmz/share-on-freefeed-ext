@@ -5,6 +5,7 @@ import {observable, action, autorun} from 'mobx';
 import css from '../../styles/modules/view-post.css';
 
 import UserBar from './user-bar';
+import {closePopup} from './cancel-link';
 
 const frontends = {
     'freefeed.net': 'https://freefeed.net/',
@@ -34,9 +35,7 @@ export default inject('ui')(observer(
             localStorage.setItem(lsFrontendKey, this.frontend);
             const url = frontends[this.frontend] + this.props.ui.postAddress;
             window.open(url, '_blank');
-            if ('parentIFrame' in window) {
-                window['parentIFrame'].close();
-            }
+            closePopup();
         };
 
         render() {

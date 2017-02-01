@@ -3,6 +3,11 @@ body {
     padding:          0;
     background-color: #eee;
     font:             300 15px/1.4 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    overflow:         hidden;
+}
+
+body.with-scrolling {
+    overflow: auto;
 }
 
 .link {

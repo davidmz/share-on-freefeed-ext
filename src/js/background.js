@@ -1,8 +1,13 @@
-chrome.browserAction.onClicked.addListener(tab => chrome.tabs.sendMessage(tab.id, {action: 'TOGGLE', data: null}));
+import * as actions from './lib/actions';
+
+chrome.browserAction.onClicked.addListener(tab => chrome.tabs.sendMessage(tab.id, {
+    action: actions.POPUP_OPEN,
+    data: null
+}));
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
     const images = (info.mediaType && info.mediaType === 'image' && info.srcUrl && /^https?:\/\//.test(info.srcUrl)) ? [info.srcUrl] : null;
-    chrome.tabs.sendMessage(tab.id, {action: 'OPEN', data: {images}})
+    chrome.tabs.sendMessage(tab.id, {action: actions.POPUP_OPEN, data: images});
 });
 
 chrome.runtime.onInstalled.addListener(() => {

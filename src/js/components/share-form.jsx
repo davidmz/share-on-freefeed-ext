@@ -135,6 +135,7 @@ export default inject('user', 'ui')(observer(
                                 value={this.postText}
                                 onChange={this.changePostText}
                                 minRows={4}
+                                maxRows={10}
                                 className={css.textArea + ' ' + css['-main']}
                                 ref={this.setBodyInput}
                             />
@@ -147,6 +148,7 @@ export default inject('user', 'ui')(observer(
                                     value={this.commentText}
                                     onChange={this.changeCommentText}
                                     minRows={3}
+                                    maxRows={6}
                                     className={css.textArea}
                                     ref={this.setCommentInput}
                                 />

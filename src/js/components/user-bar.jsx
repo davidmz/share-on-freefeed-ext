@@ -4,6 +4,7 @@ import {inject, observer} from 'mobx-react';
 import {closePopup} from './cancel-link';
 import SVGIcon from './svg-icon';
 import css from '../../styles/modules/user-bar.css';
+import * as actions from '../lib/actions';
 
 export default inject('user')(observer(
     class extends Component {
@@ -19,8 +20,8 @@ export default inject('user')(observer(
             );
             window.addEventListener('mouseup', () => this.isDragged = false);
             window.addEventListener('mousemove', e => {
-                    if (this.isDragged && 'parentIFrame' in window) {
-                        window['parentIFrame'].sendMessage({action: 'drag', data: {x: e.screenX, y: e.screenY}});
+                    if (this.isDragged) {
+                        actions.send(window.parent, actions.POPUP_DRAG, {x: e.screenX, y: e.screenY});
                     }
                 }
             );
@@ -37,9 +38,7 @@ export default inject('user')(observer(
             }
             e.preventDefault();
             this.isDragged = true;
-            if ('parentIFrame' in window) {
-                window['parentIFrame'].sendMessage({action: 'dragStart', data: {x: e.screenX, y: e.screenY}});
-            }
+            actions.send(window.parent, actions.POPUP_DRAG_START, {x: e.screenX, y: e.screenY});
         };
 
         render() {

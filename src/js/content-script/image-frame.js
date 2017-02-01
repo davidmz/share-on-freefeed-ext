@@ -104,7 +104,14 @@ function getImageSrc(el) {
         return null;
     }
 
-    if (el.nodeName == 'IMG') {
+    if (el.nodeName === 'IMG' && el.parentNode.nodeName === 'A') {
+        const href = el.parentNode.href;
+        if (/^https?:\/\//.test(href) && /\.(jpe?g|png|gif)$/i.test(href)) {
+            return href;
+        }
+    }
+
+    if (el.nodeName === 'IMG') {
         const src = el.currentSrc || el.src;
         return (src && /^https?:\/\//.test(src)) ? src : null;
     }

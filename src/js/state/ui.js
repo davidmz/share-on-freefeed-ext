@@ -13,6 +13,7 @@ function sanitizeURL(url) {
 class UIStatus {
     @observable isLoading = false;
     @observable isBlocking = false;
+    @observable withScrolling = false;
     @observable selectedFeeds = [];
     @observable images = [];
     @observable postAddress = null;
@@ -25,6 +26,8 @@ class UIStatus {
     @action setPostAddress(addr) { this.postAddress = addr; }
 
     @action setSettings(s) { this.settings = s; }
+
+    @action setScrolling(v) { this.withScrolling = v; }
 
     @action addImage(img) {
         img = sanitizeURL(img);

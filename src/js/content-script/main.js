@@ -1,5 +1,6 @@
 import Popup from './iframe';
 import ImageFrame from './image-frame';
+import * as actions from '../lib/actions';
 
 {
     // подключение CSS с учётом возможного отсутствия HEAD у документа (например, в PDF-вьювере)
@@ -12,13 +13,32 @@ import ImageFrame from './image-frame';
 const popup = new Popup();
 const imageFrame = new ImageFrame();
 
-imageFrame.onClick = src => popup.sendMessage(['addImage', src]);
+imageFrame.onClick = src => popup.addImage(src);
 
 chrome.runtime.onMessage.addListener(({action, data}) => {
-    if (action === 'TOGGLE') {
-        popup.toggle();
-    } else if (action === 'OPEN') {
-        popup.show(data.images);
+    if (action === actions.POPUP_OPEN) {
+        popup.show(data);
     }
 });
 
+window.addEventListener('message', ({origin, data: {action, data}}) => {
+    if (origin !== popup.origin) {
+        return;
+    }
+    if (action === actions.POPUP_RESIZE) {
+        popup.setHeight(data);
+    }
+    if (action === actions.POPUP_CLOSE) {
+        popup.hide();
+        document.body.classList.remove('share-on-freefeed-with-iframe');
+    }
+    if (action === actions.POPUP_DRAG_START) {
+        popup.onDragStart(data);
+    }
+    if (action === actions.POPUP_DRAG) {
+        popup.onDrag(data);
+    }
+    if (action === actions.FORM_IS_VISIBLE) {
+        document.body.classList.toggle('share-on-freefeed-with-iframe', data);
+    }
+});
