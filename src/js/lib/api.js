@@ -38,7 +38,7 @@ export function bookmarklet(title, images, comment, feeds) {
         '/v1/bookmarklet',
         {title, images, meta: {feeds}, comment}
     ).then(resp => {
-        const author = resp.admins
+        const author = resp.users
             .find(a => a.id === resp.posts.createdBy);
 
         const recipients = resp.posts.postedTo
