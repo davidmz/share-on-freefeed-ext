@@ -1,3 +1,3 @@
 export default function (str) {
-    return str.toString().replace(/^\s+|\s+$/, '');
+  return str.toString().replace(/^\s+|\s+$/, "");
 }

@@ -1,104 +1,104 @@
 .bmkForm {
-    padding: 10px;
+  padding: 10px;
 }
 
 .textArea {
-    padding:          0.33em;
-    width:            100%;
-    border-radius:    0.25em;
-    background-color: #fff;
-    border:           1px solid #999;
-    box-sizing:       border-box;
-    height:           80px;
-    resize:           vertical;
-    font:             inherit;
+  padding: 0.33em;
+  width: 100%;
+  border-radius: 0.25em;
+  background-color: #fff;
+  border: 1px solid #999;
+  box-sizing: border-box;
+  height: 80px;
+  resize: vertical;
+  font: inherit;
 }
 
 .textArea.-main {
-    height: 120px;
+  height: 120px;
 }
 
 .targetPreview {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .targetPreview img {
-    width:          16px;
-    height:         16px;
-    border:         1px solid #999;
-    border-radius:  50%;
-    vertical-align: text-top;
-    margin-right:   0.2em;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #999;
+  border-radius: 50%;
+  vertical-align: text-top;
+  margin-right: 0.2em;
 }
 
 .imgPreview {
-    display:        inline-block;
-    vertical-align: middle;
-    margin-right:   8px;
-    margin-bottom:  8px;
-    position:       relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  position: relative;
 }
 
 .imgPreview img {
-    max-width:  120px;
-    max-height: 80px;
-    min-width:  20px;
-    min-height: 20px;
-    float:      left;
-    border:     1px solid #999;
+  max-width: 120px;
+  max-height: 80px;
+  min-width: 20px;
+  min-height: 20px;
+  float: left;
+  border: 1px solid #999;
 }
 
 .imgPlace {
-    width:            80px;
-    height:           80px;
-    float:            left;
-    background-color: #999999;
-    border:           1px solid #999;
-    background-size:  100% 100%;
+  width: 80px;
+  height: 80px;
+  float: left;
+  background-color: #999999;
+  border: 1px solid #999;
+  background-size: 100% 100%;
 }
 
 .delBtn {
-    cursor:        pointer;
-    position:      absolute;
-    top:           -6px;
-    right:         -6px;
-    width:         20px;
-    height:        20px;
-    background:    #333;
-    border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 20px;
+  height: 20px;
+  background: #333;
+  border-radius: 50%;
 }
 
 .delBtn svg {
-    position: absolute;
-    top:      0;
-    left:     0;
-    width:    100%;
-    height:   100%;
-    color:    white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
 }
 
 .imgInfo {
-    position:         absolute;
-    bottom:           0;
-    left:             0;
-    background-color: rgba(255, 255, 255, 0.5);
-    color:            black;
-    padding:          1px 3px;
-    font-size:        10px;
-    max-width:        100%;
-    overflow:         hidden;
-    text-overflow:    ellipsis;
-    border-bottom:    1px solid #999;
-    border-left:      1px solid #999;
-    box-sizing:       border-box;
-    text-decoration:  none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: black;
+  padding: 1px 3px;
+  font-size: 10px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-bottom: 1px solid #999;
+  border-left: 1px solid #999;
+  box-sizing: border-box;
+  text-decoration: none;
 }
 
 .imgInfo:hover {
-    background-color: white;
-    text-decoration:  underline;
+  background-color: white;
+  text-decoration: underline;
 }
 
 .imgInfo:empty {
-    display: none;
+  display: none;
 }

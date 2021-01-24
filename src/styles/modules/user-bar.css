@@ -1,56 +1,55 @@
 .userBar {
-    display:          flex;
-    align-items:      center;
-    justify-content:  space-between;
-    height:           50px;
-    padding:          0 5px;
-    background-color: #069;
-    color:            #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 50px;
+  padding: 0 5px;
+  background-color: #069;
+  color: #fff;
 }
 
 .userBar :global(.link) {
-    color: #fff;
+  color: #fff;
 }
 
 .userBar > * {
-    padding: 5px;
+  padding: 5px;
 }
 
 .avatar {
-    flex: 0 0;
+  flex: 0 0;
 }
 
 .avatar img {
-    width:         40px;
-    height:        40px;
-    border-radius: 50%;
-    float:         left;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  float: left;
 }
 
 .name {
-    flex:          1 0;
-    text-overflow: ellipsis;
-    overflow:      hidden;
+  flex: 1 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .close {
-    flex: 0 0;
+  flex: 0 0;
 }
 
 .close svg {
-    width:   24px;
-    height:  24px;
-    float:   left;
-    cursor:  pointer;
-    opacity: 0.66;
+  width: 24px;
+  height: 24px;
+  float: left;
+  cursor: pointer;
+  opacity: 0.66;
 }
 
 .close svg:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 .signOutBlock {
-    margin-left: 0.33em;
-    opacity:     0.66;
+  margin-left: 0.33em;
+  opacity: 0.66;
 }
-
