@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 
 import AJAXIndicator from "./ajax-indicator";
-import LoginForm from "./login-form";
 import ShareForm from "./share-form";
 import ViewPost from "./view-post";
 import SVGIcon from "./svg-icon";
 import ResizeTracker, { ELEMENT_RESIZE_EVENT } from "./resize-tracker";
 import * as actions from "../lib/actions";
 import { closePopup } from "./cancel-link";
+import TokenForm from "./token-form";
 
 @inject("user", "ui")
 @observer
@@ -56,7 +56,7 @@ export default class extends Component {
                 <ShareForm />
               )
             ) : (
-              <LoginForm />
+              <TokenForm />
             )}
           </div>
           <div

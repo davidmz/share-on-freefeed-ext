@@ -10,6 +10,10 @@ body.with-scrolling {
   overflow: auto;
 }
 
+a {
+  color: #136699;
+}
+
 .link {
   color: #000;
   cursor: pointer;

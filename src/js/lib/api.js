@@ -1,11 +1,11 @@
 import user from "../state/user";
 import ui from "../state/ui";
 
-const API_HOST = "https://freefeed.net";
+export const API_ORIGIN = "https://freefeed.net";
 
 export function startSession(userName, password) {
   return apiResp(
-    fetch(`${API_HOST}/v1/session`, {
+    fetch(`${API_ORIGIN}/v1/session`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -65,7 +65,7 @@ function apiCall(uri, postData = null, method = "POST") {
     mode: "cors",
     headers: {
       Accept: "application/json",
-      "X-Authentication-Token": user.token,
+      Authorization: "Bearer " + user.token,
     },
   };
   if (postData) {
@@ -73,7 +73,7 @@ function apiCall(uri, postData = null, method = "POST") {
     opts.body = JSON.stringify(postData);
     opts.headers["Content-Type"] = "application/json";
   }
-  return apiResp(fetch(API_HOST + uri, opts));
+  return apiResp(fetch(API_ORIGIN + uri, opts));
 }
 
 function apiResp(prom) {

@@ -2,11 +2,16 @@
   padding: 10px;
 }
 
-.loginForm input:not([type="checkbox"]) {
+.loginForm input:not([type="checkbox"]),
+.loginForm textarea {
   padding: 0.5em;
   width: 100%;
   border-radius: 0.25em;
   background-color: #fff;
   border: 1px solid #999;
   box-sizing: border-box;
+}
+
+.loginForm textarea {
+  height: 4em;
 }

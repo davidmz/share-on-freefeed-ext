@@ -85,6 +85,18 @@ class State {
     }
   }
 
+  setToken(authToken) {
+    ui.setBlocking();
+    this.rcvSessionResponse({ authToken });
+    return api
+      .whoami()
+      .then((resp) => {
+        this.rcvWhoamiResponse(resp);
+      })
+      .then(() => localStorage.setItem(lsUserKey, JSON.stringify(toJS(this))))
+      .finally(() => ui.setBlocking(false));
+  }
+
   signIn(userName, password, remember) {
     ui.setBlocking();
     return api
