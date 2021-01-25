@@ -20,12 +20,6 @@
     "scripts": ["background.js"],
     "persistent": false
   },
-  "content_scripts": [
-    {
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["content-script.js"]
-    }
-  ],
   "web_accessible_resources": ["pages/*"],
   "options_ui": {
     "page": "pages/options.html",

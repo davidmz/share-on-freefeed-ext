@@ -1,11 +1,12 @@
 import * as actions from "./lib/actions";
 
-chrome.browserAction.onClicked.addListener((tab) =>
-  chrome.tabs.sendMessage(tab.id, {
-    action: actions.POPUP_OPEN,
-    data: null,
-  })
-);
+function openPopup(tab, data = null) {
+  chrome.tabs.executeScript(tab.id, { file: "content-script.js" }, () =>
+    chrome.tabs.sendMessage(tab.id, { action: actions.POPUP_OPEN, data })
+  );
+}
+
+chrome.browserAction.onClicked.addListener((tab) => openPopup(tab));
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   const images =
@@ -15,7 +16,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     /^https?:\/\//.test(info.srcUrl)
       ? [info.srcUrl]
       : null;
-  chrome.tabs.sendMessage(tab.id, { action: actions.POPUP_OPEN, data: images });
+  openPopup(tab, images);
 });
 
 chrome.runtime.onInstalled.addListener(() => {
